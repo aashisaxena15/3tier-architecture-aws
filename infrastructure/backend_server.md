@@ -9,16 +9,33 @@ sudo dnf install git -y
 ```
 
 ## Add the following EC2 instance userdata to the Launch Template:
-
 ```
 #!/bin/bash
+
+# Update system packages and install Apache & Git
+sudo yum update -y
+sudo yum install -y httpd git
+
+# Start and enable Apache service
 sudo systemctl start httpd
+sudo systemctl enable httpd
+
+# Navigate to Apache web root
 cd /var/www/html
-sudo git clone https://github.com/ajitinamdar-tech/three-tier-architecture-aws.git
+
+# Clone backend code from your GitHub repository
+sudo git clone https://github.com/aashisaxena15/3tier-architecture-aws.git
+
+# Create api directory and move backend files
 sudo mkdir api
-sudo mv /var/www/html/three-tier-architecture-aws/backend/api/* /var/www/html/api/
-sudo rm -rf /var/www/html/three-tier-architecture-aws
-sed -i 's/update-me-host/insert-your-database-host-here/g' /var/www/html/api/db_connection.php
-sed -i 's/update-me-username/insert-your-database-username-here/g' /var/www/html/api/db_connection.php
-sed -i 's/update-me-password/insert-your-database-password-here/g' /var/www/html/api/db_connection.php
+sudo mv 3tier-architecture-aws/backend/api/* api/
+
+# Clean up the cloned repository
+sudo rm -rf 3tier-architecture-aws
+
+# Replace database credentials in db_connection.php
+sudo sed -i 's/update-me-host/demo-database.cb0qe2wsafpo.ap-south-1.rds.amazonaws.com/g' /var/www/html/api/db_connection.php
+sudo sed -i 's/update-me-username/admin/g' /var/www/html/api/db_connection.php
+sudo sed -i 's/update-me-password/aashi123/g' /var/www/html/api/db_connection.php
 ```
+
