@@ -11,12 +11,30 @@ Replace the server block in /etc/nginx/nginx.conf with the content from the ngin
 
 ```
 #!/bin/bash
-sed -i 's/update-me/insert-your-backend-alb-url-here/g' /etc/nginx/nginx.conf
+
+# Update package list and install nginx & git
+sudo apt-get update -y
+sudo apt-get install -y nginx git
+
+# Replace placeholder in nginx config with actual backend ALB URL
+sudo sed -i 's/update-me/internal-backend-alb-81789294.ap-south-1.elb.amazonaws.com/g' /etc/nginx/nginx.conf
+
+# Start and enable nginx service
 sudo systemctl start nginx
+sudo systemctl enable nginx
+
+# Navigate to nginx's web root
 cd /usr/share/nginx/html
-sudo git clone https://github.com/ajitinamdar-tech/three-tier-architecture-aws.git
-mv /usr/share/nginx/html/three-tier-architecture-aws/frontend/* /usr/share/nginx/html/
-sudo rm -rf /usr/share/nginx/html/three-tier-architecture-aws
+
+# Clone your frontend code from GitHub
+sudo git clone https://github.com/aashisaxena15/3tier-architecture-aws.git
+
+# Move frontend files to the nginx root
+sudo mv 3tier-architecture-aws/frontend/* .
+
+# Clean up the cloned repo
+sudo rm -rf 3tier-architecture-aws
+
 ```
 
 
