@@ -1,3 +1,5 @@
+Medium Blog : https://aashisaxena15.medium.com/deploying-a-netflix-clone-on-cloud-using-jenkins-a-devsecops-project-da346a960234
+
 # Hello World Three-Tier Application
 
 This repository contains a simple "Hello World" application built using a three-tier architecture. The application demonstrates the fundamental concepts of separating frontend, backend, and database components in a web application.
